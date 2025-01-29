@@ -6,7 +6,7 @@ def flatten(xss):
     return [x for xs in xss for x in xs]
 
 def crawl_until_the_end(url):
-    current_page = 4
+    current_page = 1
     combos = []
     combos_found = True
 
