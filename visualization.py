@@ -28,7 +28,7 @@ def create_graph(combos):
     for node in net.get_nodes():
         neighbors = net.neighbors(node)
         node_id = net.get_node(node)
-        node_id['size'] = min(200, 20 + 10 * len(neighbors))
+        node_id['size'] = min(210, 20 + 10 * len(neighbors))
 
     net.show_buttons()
     net.toggle_physics(True)
