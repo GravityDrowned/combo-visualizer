@@ -24,6 +24,12 @@ def create_graph(combos):
             net.add_node(card, title=card, shape="image", image=images[i], size=20)
         add_all_edges(net, cards, combo.get("results"))
 
+    # set the size in relation to the number of connections
+    for node in net.get_nodes():
+        neighbors = net.neighbors(node)
+        node_id = net.get_node(node)
+        node_id['size'] = min(100, 20 + 10 * len(neighbors))
+
     net.show_buttons()
     net.toggle_physics(True)
     net.show("cards.html")
