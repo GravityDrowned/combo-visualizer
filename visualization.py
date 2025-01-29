@@ -12,7 +12,7 @@ def add_all_edges(net, cards, results):
             net.add_edge(card, other_card, color=color, title='\n'.join(results))
 
 def create_graph(combos):
-    net = Network(height="1500px", width="100%", bgcolor="#222222", font_color="white", notebook=True, select_menu=True,
+    net = Network(height="1000px", width="100%", bgcolor="#222222", font_color="white", notebook=True, select_menu=True,
                   filter_menu=True)
     net.barnes_hut()
     if not combos:
@@ -30,7 +30,7 @@ def create_graph(combos):
         node_id = net.get_node(node)
         node_id['size'] = min(210, 20 + 10 * len(neighbors))
 
-    net.show_buttons()
+    net.show_buttons(filter_="physics")
     net.toggle_physics(True)
     net.show("cards.html")
 

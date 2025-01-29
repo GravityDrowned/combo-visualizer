@@ -1,9 +1,19 @@
-# https://commanderspellbook.com/search/?q=Xyris+ci%3ATemur
+# Temur
+# https://commanderspellbook.com/search/?q=Xyris+ci%3AGreen
 import requests
 from bs4 import BeautifulSoup
+import urllib.parse
+
 
 def flatten(xss):
     return [x for xs in xss for x in xs]
+
+def crawl_everything_for_a_card_name(card_name, color_name):
+    card_name_url = urllib.parse.quote_plus(card_name)
+    url ='https://commanderspellbook.com/search/?q='+card_name_url+'+ci%3A'+color_name+'+legal%3Acommander'
+    print(url)
+    combos = crawl_until_the_end(url)
+    return combos
 
 def crawl_until_the_end(url):
     current_page = 1
@@ -13,7 +23,6 @@ def crawl_until_the_end(url):
     while combos_found:
         url_next = url + '&page=' + str(current_page )
         response = requests.get(url_next)
-
 
         soup = BeautifulSoup(response.content, 'html.parser')
         s = soup.find_all('h3', class_="heading-title", string='No Combos Found')
@@ -31,7 +40,6 @@ def crawl(response):
         for combo in combo_results:
             cards_html = combo.find_all('div', class_="card-name")
             images_html = combo.find_all('div', class_='cardTooltip_cardTooltip__3eItj')
-            images_html2 =  combo.find_all('img')
             results_html = combo.find_all('div', class_="result")
 
             cards = []
@@ -58,6 +66,25 @@ def crawl(response):
     else:
         print(f"Failed to retrieve the webpage. Status code: {response.status_code}")
 
-url = "https://commanderspellbook.com/search/?q=Xyris+ci%3ATemur"
+def digging_deeper(card_name, color_name):
 
-crawl_until_the_end(url)
+    combos = crawl_everything_for_a_card_name(card_name, color_name)
+
+    combo_pieces = []
+    for combo in combos:
+        cards = combo.get("cards")
+        combo_pieces.append(cards)
+    combo_pieces = set(flatten(combo_pieces))
+    combo_pieces.remove(card_name)
+    print(combo_pieces)
+
+    combos_plus_one = []
+    combos_plus_one.append(combos)
+    for combo_piece in combo_pieces:
+        c = crawl_everything_for_a_card_name(combo_piece, color_name)
+        combos_plus_one.append(c)
+
+    combos_plus_one = flatten(combos_plus_one)
+    print(combos_plus_one)
+    return combos_plus_one
+
