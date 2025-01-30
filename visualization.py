@@ -21,7 +21,7 @@ def create_graph(combos):
         cards = combo.get("cards")
         images = combo.get("images")
         for i, card in enumerate(cards):
-            net.add_node(card, title=card, shape="image", image=images[i], size=20)
+            net.add_node(card, title=card, shape="image", image=images[i], size=20, mass=1)
         add_all_edges(net, cards, combo.get("results"))
 
     # set the size in relation to the number of connections
@@ -29,6 +29,7 @@ def create_graph(combos):
         neighbors = net.neighbors(node)
         node_id = net.get_node(node)
         node_id['size'] = min(210, 20 + 10 * len(neighbors))
+        node_id['mass'] = min(100, 1 + len(neighbors))
 
     net.show_buttons(filter_="physics")
     net.toggle_physics(True)
