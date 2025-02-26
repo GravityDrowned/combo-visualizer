@@ -1,5 +1,3 @@
-# Temur
-# https://commanderspellbook.com/search/?q=Xyris+ci%3AGreen
 import requests
 from bs4 import BeautifulSoup
 import urllib.parse
@@ -75,11 +73,13 @@ def digging_deeper(card_name, color_name):
         cards = combo.get("cards")
         combo_pieces.append(cards)
     combo_pieces = set(flatten(combo_pieces))
-    combo_pieces.remove(card_name)
+    if card_name in combo_pieces:
+        combo_pieces.remove(card_name)
     print(combo_pieces)
 
     combos_plus_one = []
     combos_plus_one.append(combos)
+
     for combo_piece in combo_pieces:
         c = crawl_everything_for_a_card_name(combo_piece, color_name)
         combos_plus_one.append(c)
