@@ -1,4 +1,5 @@
-This is a visualizer for https://commanderspellbook.com. It creates a graph, in which one can see the amount of combos a card is part of by its size.  
+This is a visualizer for finding combos with https://commanderspellbook.com.  
+Every coloured connection between multiple cards is a infinite combo. The bigger the card, the more combos it's a part of. 
 ![example of what the output looks like](./img/example.png)
 ## Setup
 ### Install Python
