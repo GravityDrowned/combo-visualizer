@@ -7,3 +7,5 @@ pyvenv.cfg
 cards.html
 .idea
 __pycache__
+card_img_cache
+.ipynb_checkpoints
