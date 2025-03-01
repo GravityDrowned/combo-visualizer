@@ -1,4 +1,6 @@
-# Setup
+This is a visualizer for https://commanderspellbook.com. It creates a graph, in which one can see the amount of combos a card is part of by its size.  
+![example of what the output looks like](./img/example.png)
+## Setup
 ### Install Python
 https://www.python.org/downloads/
 
@@ -22,7 +24,7 @@ https://jupyter.org/install
 pip install notebook
 jupyter notebook
 ```
-
+## Getting started
 # How to start crawling
 
 - The CLI will display the port your jupyter notebook is running on
